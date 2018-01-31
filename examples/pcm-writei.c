@@ -17,7 +17,8 @@ static long int file_size(FILE * file)
 
 static size_t read_file(void ** frames){
 
-    FILE * input_file = fopen("audio.raw", "rb");
+    //FILE * input_file = fopen("audio.raw", "rb");
+    FILE * input_file = fopen("./../utils/Kiep-Ve-Sau-Dan-Truong.wav", "rb");
     if (input_file == NULL) {
         perror("failed to open 'audio.raw' for writing");
         return 0;
