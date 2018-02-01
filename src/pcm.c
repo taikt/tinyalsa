@@ -233,6 +233,7 @@ static int oops(struct pcm *pcm, int e, const char *fmt, ...)
     va_start(ap, fmt);
     vsnprintf(pcm->error, PCM_ERROR_MAX, fmt, ap);
     va_end(ap);
+    printf("%s\n",pcm->error);
     sz = strlen(pcm->error);
 
     if (errno)
@@ -1072,6 +1073,8 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
     pcm = calloc(1, sizeof(struct pcm));
     if (!pcm)
         return &bad_pcm;
+    
+    //printf("taikt: card=%d, device=%d\n",card,device);
 
     snprintf(fn, sizeof(fn), "/dev/snd/pcmC%uD%u%c", card, device,
              flags & PCM_IN ? 'c' : 'p');
@@ -1085,6 +1088,7 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
 
     if (pcm->fd < 0) {
         oops(pcm, errno, "cannot open device '%s'", fn);
+        //printf("taikt: cannot open device %s\n",fn);
         return pcm;
     }
 
@@ -1094,12 +1098,14 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
     }
     pcm->subdevice = info.subdevice;
 
-    if (pcm_set_config(pcm, config) != 0)
+    if (pcm_set_config(pcm, config) != 0) {
         goto fail_close;
+    }
 
     rc = pcm_hw_mmap_status(pcm);
     if (rc < 0) {
         oops(pcm, rc, "mmap status failed");
+        //printf("taikt: mmap status failed\n");
         goto fail;
     }
 
@@ -1115,6 +1121,7 @@ struct pcm *pcm_open(unsigned int card, unsigned int device,
 #endif
 
     pcm->underruns = 0;
+    //printf("taikt return pcm %d\n",pcm->fd);
     return pcm;
 
 fail:

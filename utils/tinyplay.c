@@ -47,8 +47,8 @@ void cmd_init(struct cmd *cmd)
 {
     cmd->filename = NULL;
     cmd->filetype = NULL;
-    cmd->card = 0;
-    cmd->device = 0;
+    cmd->card = 0; // 0
+    cmd->device = 0; // 0
     cmd->flags = PCM_OUT;
     cmd->config.period_size = 1024;
     cmd->config.period_count = 2;
@@ -254,7 +254,8 @@ int ctx_init(struct ctx* ctx, const struct cmd *cmd)
         fclose(ctx->file);
         return -1;
     }
-
+    
+    printf("taikt card=%d, device=%d\n",cmd->card, cmd->device);
     ctx->pcm = pcm_open(cmd->card,
                         cmd->device,
                         cmd->flags,
