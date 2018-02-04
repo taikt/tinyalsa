@@ -7,6 +7,8 @@ VPATH = ../src
 
 EXAMPLES += pcm-readi
 EXAMPLES += pcm-writei
+#taikt
+#EXAMPLES += pcm-type 
 
 .PHONY: all
 all: $(EXAMPLES)
@@ -14,6 +16,8 @@ all: $(EXAMPLES)
 pcm-readi: pcm-readi.c -ltinyalsa
 
 pcm-writei: pcm-writei.c -ltinyalsa
+
+#pcm-type: pcm-type.c -ltinyalsa
 
 .PHONY: clean
 clean:
