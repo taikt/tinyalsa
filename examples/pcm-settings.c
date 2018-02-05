@@ -6,6 +6,8 @@ perform any sound playback or recording.
 
 */
 
+// gcc pcm-setting.c -lasound -ldl -lm
+
 /* Use the newer ALSA API */
 #define ALSA_PCM_NEW_HW_PARAMS_API
 
