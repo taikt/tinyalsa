@@ -7,6 +7,9 @@
 *.so
 *.so.*
 *.a
+*.lo
+*.in
+*.la
 
 /libs
 /obj
